@@ -22,7 +22,7 @@
 
           <ion-item class="color">
             <ion-label position="floating">Rut (sin puntos ni guión): </ion-label>
-            <ion-input type="text" placeholder="20435764-6" formControlName="rut"></ion-input>
+            <ion-input type="text" placeholder="ej: 204357646" formControlName="rut"></ion-input>
           </ion-item>
 
           <div *ngIf="registroFormu.get('rut')?.invalid && (registroFormu.get('rut')?.dirty || registroFormu.get('rut')?.touched)">
@@ -52,41 +52,13 @@
           </div>
 
           <ion-item class="color">
-            <ion-label position="floating">Apellido: </ion-label>
-            <ion-input type="text" placeholder="Doe" formControlName="apellido"></ion-input>
-          </ion-item>
-
-          <div *ngIf="registroFormu.get('apellido')?.invalid && (registroFormu.get('apellido')?.dirty || registroFormu.get('apellido')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('apellido')?.hasError('required')">
-              El apellido es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('apellido')?.hasError('minlength')">
-              El apellido debe tener 3 caracteres como minimo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Número: </ion-label>
-            <ion-input type="number" placeholder="9 2345 6746" formControlName="numero"></ion-input>
-          </ion-item>
-
-          <div *ngIf="registroFormu.get('numero')?.invalid && (registroFormu.get('numero')?.dirty || registroFormu.get('numero')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('numero')?.hasError('required')">
-              Tú número telefonico es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('numero')?.hasError('maxlength')">
-              El número debe tener 9 caracteres como máximo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Correo Institucional: </ion-label>
+            <ion-label position="floating">Correo: </ion-label>
             <ion-input type="email" placeholder="jane.d@duocuc.cl" formControlName="email"></ion-input>
           </ion-item>
 
           <div *ngIf="registroFormu.get('email')?.invalid && (registroFormu.get('email')?.dirty || registroFormu.get('email')?.touched)">
             <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('email')?.hasError('required')">
-              El correo institucional es obligatorio
+              El correo electronico es obligatorio
             </div>
             <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('email')?.hasError('minlength')">
               El correo debe tener 9 caracteres como minimo
@@ -107,6 +79,20 @@
             </div>
             <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('password')?.hasError('minlength')">
               Tu contraseña debe tener 8 caracteres como minimo
+            </div>
+          </div>
+
+          <ion-item class="color">
+            <ion-label position="floating">Rol (pone 1 nomas o si no):</ion-label>
+            <ion-input type="number" formControlName="rol"></ion-input>
+          </ion-item>
+
+          <div *ngIf="registroFormu.get('rol')?.invalid && (registroFormu.get('rol')?.dirty || registroFormu.get('rol')?.touched)">
+            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('rol')?.hasError('required')">
+              El rol es obligatorio
+            </div>
+            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('rol')?.hasError('maxlength')">
+              solo 1 >:(
             </div>
           </div>
         </ion-list>
