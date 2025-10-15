@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import { RegistroClientePage } from './registro-cliente.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    RegistroClientePageRoutingModule
+    RegistroClientePageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [RegistroClientePage]
 })
