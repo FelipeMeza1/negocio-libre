@@ -46,7 +46,7 @@ export class RegistroClientePage implements OnInit {
 
   Registro(){
     if(this.registroFormu.valid){
-      this.auth.BuscarClientePorEmail(this.registroFormu.value.email).subscribe(resp=>{
+      this.auth.BuscarClientePorId(this.registroFormu.value.email).subscribe(resp=>{
         this.userdata = resp;
         if(this.userdata.length>0){
           this.registroFormu.reset();

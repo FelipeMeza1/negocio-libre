@@ -1,0 +1,20 @@
+{
+  "usuarios": [
+    {
+      "id": 1,
+      "rut": 124653764,
+      "nombre": "roden",
+      "email": "roden@gmail.com",
+      "password": "12345678",
+      "rol": 1
+    },
+    {
+      "rut": "11746378",
+      "nombre": "yon",
+      "email": "yons@gmail.com",
+      "password": "87654321",
+      "rol": 1,
+      "id": 2
+    }
+  ]
+}
