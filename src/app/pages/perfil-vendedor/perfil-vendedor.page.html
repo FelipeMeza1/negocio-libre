@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <ion-card class="profile-card">
+    <ion-card-header class="ion-text-center">
+      <!-- Usamos un ícono grande como avatar por defecto -->
+      <ion-avatar class="profile-avatar">
+        <ion-icon name="person-circle" class="profile-icon"></ion-icon>
+      </ion-avatar>
+      <ion-card-title>{{ nombreUsuario }}</ion-card-title>
+      <ion-card-subtitle>{{ emailUsuario }}</ion-card-subtitle>
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-list [inset]="true">
+        <ion-list-header>
+          <ion-label>Datos del Negocio</ion-label>
+        </ion-list-header>
+        <ion-item lines="inset">
+          <ion-icon name="business-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Nombre del Negocio</h3>
+            <p>{{ nombreNegocio }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="inset">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h3>Dueño</h3>
+            <p>{{ nombreUsuario }}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón para cerrar sesión -->
+  <ion-button 
+    (click)="cerrarSesion()" 
+    expand="block" 
+    color="danger" 
+    shape="round" 
+    class="ion-margin-top">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar Sesión
+  </ion-button>
+
+</ion-content>

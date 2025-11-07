@@ -1,0 +1,199 @@
+<ion-header>
+  <ion-toolbar color="tertiary">
+    <ion-title>Gestión de Productos</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="segmentoSeleccionado" (ionChange)="segmentoCambiado($event)">
+      <ion-segment-button value="mis_productos">
+        <ion-label>Mis Productos</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="anadir_producto">
+        <ion-label>Añadir Producto</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="anadir_oferta">
+        <ion-label>Crear Oferta</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding-top">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Cargando productos...</p>
+  </div>
+
+  <div [hidden]="isLoading">
+    
+    <div [hidden]="segmentoSeleccionado !== 'anadir_producto'">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Agregar Producto</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <form [formGroup]="productoForm" (ngSubmit)="agregarProducto()">
+            <div class="ion-text-center ion-margin-bottom">
+              <ion-thumbnail *ngIf="imagenPreview; else placeholder">
+                <img [src]="imagenPreview" />
+              </ion-thumbnail>
+              <ng-template #placeholder>
+                <ion-thumbnail class="placeholder-thumb">
+                  <ion-icon name="image-outline"></ion-icon>
+                </ion-thumbnail>
+              </ng-template>
+              <ion-button fill="clear" (click)="tomarFoto()">
+                <ion-icon slot="start" name="camera-outline"></ion-icon>
+                Subir Foto (Cámara/Galería)
+              </ion-button>
+            </div>
+            <div class="separator"><span>O</span></div>
+            <ion-item>
+              <ion-label position="floating">Pegar URL de la Imagen (Opcional)</ion-label>
+              <ion-input 
+                formControlName="imagen_url" 
+                type="text" 
+                (ionInput)="onUrlInput()"> 
+              </ion-input>
+              <ion-note slot="helper">https://ejemplo.com/imagen.png</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Nombre del Producto</ion-label>
+              <ion-input formControlName="nombre_producto" type="text"></ion-input>
+              <ion-note slot="helper">Palta Hass, Pan Marraqueta, etc.</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Precio Base</ion-label>
+              <ion-input formControlName="precio_base" type="number"></ion-input>
+              <ion-note slot="helper">Ingresa el precio sin puntos. (ej: 2500)</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Stock Disponible</ion-label>
+              <ion-input formControlName="stock_disponible" type="number"></ion-input>
+              <ion-note slot="helper">50</ion-note>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating">Unidad de Medida</ion-label>
+              <ion-select formControlName="unidad">
+                <ion-select-option value="Unidad">Unidad</ion-select-option>
+                <ion-select-option value="Kg">Kilo (Kg)</ion-select-option>
+                <ion-select-option value="g">Gramos (g)</ion-select-option>
+                <ion-select-option value="Litro">Litro (L)</ion-select-option>
+              </ion-select>
+              <ion-note slot="helper">Elige cómo vendes este producto.</ion-note>
+            </ion-item>
+            <ion-button [disabled]="productoForm.invalid" type="submit" expand="block" class="ion-margin-top">
+              Guardar Producto
+            </ion-button>
+          </form>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div [hidden]="segmentoSeleccionado !== 'anadir_oferta'">
+      <div *ngIf="misProductos.length === 0" class="ion-text-center ion-padding-top">
+        <p>No tienes productos para crear ofertas.</p>
+        <ion-button fill="clear" (click)="segmentoSeleccionado = 'anadir_producto'">
+          Añade un producto primero
+        </ion-button>
+      </div>
+      
+      <ion-list-header *ngIf="misProductos.length > 0">
+        <ion-label>Mis Productos</ion-label>
+      </ion-list-header>
+      
+      <ion-card *ngFor="let prod of misProductos" class="oferta-card">
+        
+        <img *ngIf="esImagenValida(prod.imagen_url)" [src]="prod.imagen_url" class="oferta-imagen"/>
+        <div *ngIf="!esImagenValida(prod.imagen_url)" class="oferta-imagen-placeholder">
+          <ion-icon name="cube-outline"></ion-icon>
+        </div>
+
+        <ion-card-header>
+          <ion-card-title class="oferta-titulo">{{ prod.nombre_producto }}</ion-card-title>
+          <ion-card-subtitle class="oferta-precio">${{ prod.precio_base }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-range 
+            color="success" 
+            [pin]="true" 
+            [pinFormatter]="formatearPin" 
+            [step]="1" 
+            [min]="0" 
+            [max]="100" 
+            [(ngModel)]="prod.porcentaje_descuento"
+            (ionChange)="guardarOferta(prod)"
+            class="oferta-range"
+          >
+          </ion-range>
+          
+          <div class="oferta-display">
+            {{ prod.porcentaje_descuento }}% OFF!
+          </div>
+
+          <div class="oferta-precio-final">
+            Precio Final: 
+            <span>${{ calcularPrecioOferta(prod.precio_base, prod.porcentaje_descuento) }}</span>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div [hidden]="segmentoSeleccionado !== 'mis_productos'">
+      
+      <div *ngIf="misProductos.length === 0" class="ion-text-center ion-padding-top">
+        <p>Aún no has agregado productos.</p>
+        <ion-button fill="clear" (click)="segmentoSeleccionado = 'anadir_producto'">
+          Añadir tu primer producto
+        </ion-button>
+      </div>
+
+      <ion-list-header *ngIf="misProductos.length > 0">
+        <ion-label>Mi Inventario</ion-label>
+        <ion-note>Desliza un ítem para editar o eliminar</ion-note>
+      </ion-list-header>
+
+      <ion-list *ngIf="misProductos.length > 0" [inset]="true">
+        <ion-item-sliding *ngFor="let prod of misProductos">
+          
+          <ion-item-options side="end">
+            <ion-item-option color="primary" (click)="mostrarModalEditar(prod)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+              Editar
+            </ion-item-option>
+            <ion-item-option color="danger" (click)="eliminarProducto(prod)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+              Eliminar
+            </ion-item-option>
+          </ion-item-options>
+          
+          <ion-item lines="full">
+            <ion-thumbnail slot="start" *ngIf="esImagenValida(prod.imagen_url); else placeholderProdList">
+              <img [src]="prod.imagen_url" />
+            </ion-thumbnail>
+            <ng-template #placeholderProdList>
+              <ion-thumbnail slot="start" class="placeholder-thumb-small">
+                 <ion-icon name="cube-outline"></ion-icon>
+              </ion-thumbnail>
+            </ng-template>
+            
+            <ion-label>
+              <h2>{{ prod.nombre_producto }}</h2>
+              <p>Stock: {{ prod.stock_disponible }} {{ prod.unidad }}(s)</p>
+              <p *ngIf="prod.porcentaje_descuento > 0">
+                <ion-chip color="success" class="chip-oferta">{{ prod.porcentaje_descuento }}% OFF</ion-chip>
+              </p>
+            </ion-label>
+            <ion-text slot="end" color="primary">
+              <p class="precio">${{ calcularPrecioOferta(prod.precio_base, prod.porcentaje_descuento) }}</p>
+              <p *ngIf="prod.porcentaje_descuento > 0" class="precio-antiguo-lista">${{ prod.precio_base }}</p>
+            </ion-text>
+          </ion-item>
+
+        </ion-item-sliding>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

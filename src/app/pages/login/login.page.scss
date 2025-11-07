@@ -1,0 +1,108 @@
+@keyframes rainbowWave {
+  0%   { border-color: red; }
+  14%  { border-color: orange; }
+  28%  { border-color: yellow; }
+  42%  { border-color: lime; } // Verde lima brillante
+  57%  { border-color: cyan; } // Azul claro/cyan
+  71%  { border-color: blue; }
+  85%  { border-color: purple; }
+  100% { border-color: red; } // Vuelve al inicio para el bucle
+}
+
+ion-content {
+  // Un fondo muy claro, casi blanco
+  --background: #f8f9fa;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 400px; // Ancho similar al de la imagen
+  --background: #ffffff;
+box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;  border: 4px solid red;
+  margin: 20px;
+  animation-name: rainbowWave;
+  animation-duration: 2s;       // Duración rápida para el efecto "MLG"
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; // Transición constante
+}
+
+ion-card-header {
+  padding-bottom: 10px;
+
+  ion-card-subtitle {
+    color: #6c757d; // Color grisáceo para el subtítulo
+    margin-bottom: 5px;
+  }
+
+  ion-card-title {
+    font-size: 1.6em;
+    color: #212529; // Título más oscuro
+  }
+
+  .email-display {
+    color: #495057;
+    margin-top: 15px;
+    font-size: 0.95em;
+    display: flex;       // Para alinear el icono con el texto
+    align-items: center;
+    justify-content: center;
+
+    ion-icon {
+      margin-right: 5px; // Espacio entre icono y texto
+      font-size: 1.2em;
+    }
+  }
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  margin-bottom: 10px;
+}
+
+.error-messages {
+  min-height: 20px;
+  padding-bottom: 8px;
+  position:relative;
+  top: -10px;
+  left: -10px;
+
+  ion-text {
+    font-size: 0.8em;
+  }
+}
+
+ion-button[type="submit"] {
+  margin-top: 25px;
+  height: 44px;
+  font-weight: 500; // Un poco menos grueso que bold
+}
+
+.links-container {
+  font-size: 0.9em;
+
+  a {
+    color: var(--ion-color-primary); // Usa el color azul principal
+    text-decoration: none;
+    display: inline-block; // Para que el <br> funcione bien
+    margin-top: 8px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+ion-card-content { // Añadimos esto para asegurar que el contenido interno no se vea afectado
+  position: relative; // Ayuda a mantener el contenido por encima de cualquier efecto raro del borde
+  z-index: 1;
+}
+

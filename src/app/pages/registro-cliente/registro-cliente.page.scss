@@ -1,0 +1,91 @@
+
+ion-content {
+  --background: #f4f5f8;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+ion-card {
+  width: 100%;
+  max-width: 500px;
+  --background: #ffffff;
+  border-radius: 16px;
+  border: 4px solid red;
+  margin: 20px 10px; 
+box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;  animation-name: rainbowWave;
+  animation-duration: 2s;       // Duración rápida para el efecto "MLG"
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; // Transición constante
+}
+
+ion-card-title {
+  font-size: 1.8em;
+  font-weight: bold;
+  color: var(--ion-color-primary);
+  text-align: center;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+  margin-bottom: 12px; 
+}
+
+.error-messages {
+  min-height: 20px; 
+  padding-left: 16px;
+  padding-bottom: 8px;
+  position: relative;
+  top: -10px;
+  left: -5px;
+
+  ion-text {
+    font-size: 0.8em;
+  }
+}
+
+
+ion-button[type="submit"] {
+  margin-top: 24px;
+  height: 48px;
+}
+
+@keyframes rainbowWave {
+  0%   { border-color: red; }
+  14%  { border-color: orange; }
+  28%  { border-color: yellow; }
+  42%  { border-color: lime; } // Verde lima brillante
+  57%  { border-color: cyan; } // Azul claro/cyan
+  71%  { border-color: blue; }
+  85%  { border-color: purple; }
+  100% { border-color: red; } // Vuelve al inicio para el bucle
+}
+
+.error-note {
+    display: block; // Asegura que ocupe su propia línea
+    margin-top: -5px; // Ajusta el margen superior para que esté cerca del input
+    margin-bottom: 10px; // Espacio inferior para separar del siguiente input
+    padding-left: 16px; // Alinea con el texto del input
+    font-size: 0.8em; // Tamaño de fuente más pequeño para el error
+}
+
+.negocio-link-container {
+  padding: 10px 16px 0px 16px; // Espacio arriba
+  
+  .negocio-link {
+    color: var(--ion-color-primary); // Color principal
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.9em;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

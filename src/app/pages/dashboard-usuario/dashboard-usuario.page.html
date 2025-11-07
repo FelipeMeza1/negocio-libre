@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Mapa de Negocios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  
+  <div *ngIf="!mapaVisible" class="map-prompt-container">
+    <ion-icon name="map-outline"></ion-icon>
+    <h2>Encuentra Negocios</h2>
+    <p>Presiona el botón para cargar el mapa y ver las ubicaciones guardadas por los vendedores</p>
+    
+    <ion-button (click)="mostrarMapa()" shape="round" expand="block" size="large">
+      <ion-icon name="search-outline" slot="start"></ion-icon>
+      Encontrar Lugares
+    </ion-button>
+  </div>
+
+  <div *ngIf="mapaVisible" class="map-display-container">
+    
+    <google-map 
+        [options]="mapOptions" 
+        height="100%" 
+        width="100%"
+        (mapClick)="onMapClick()"> 
+      
+      <map-marker 
+        *ngFor="let negocio of listaDePines"
+        [position]="negocio.position"
+        [title]="negocio.nombre_negocio"
+        (mapClick)="onMarkerClick(negocio)">
+      </map-marker>
+
+    </google-map>
+
+    <ion-card *ngIf="negocioSeleccionado" class="negocio-info-card">
+        <ion-card-header>
+            <ion-card-title>{{ negocioSeleccionado.nombre_negocio }}</ion-card-title>
+            <ion-card-subtitle>{{ negocioSeleccionado.tipo_negocio }}</ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <div *ngIf="isLoadingProducts" class="ion-text-center">
+                <ion-spinner name="dots"></ion-spinner>
+                <p>Cargando productos...</p>
+            </div>
+            
+            <div *ngIf="!isLoadingProducts && productosNegocio.length === 0" class="ion-text-center">
+                <p>No hay productos disponibles en este negocio.</p>
+            </div>
+
+            <ion-list *ngIf="!isLoadingProducts && productosNegocio.length > 0">
+                <ion-item *ngFor="let producto of productosNegocio">
+                    <ion-label>
+                        <h3>{{ producto.nombre_producto }}</h3>
+                        <p *ngIf="producto.porcentaje_descuento > 0; else precioNormal">
+                            <span class="price-final">${{ calcularPrecioOferta(producto.precio_base, producto.porcentaje_descuento) }}</span>
+                            <span class="price-base">${{ producto.precio_base }}</span>
+                            <ion-chip color="success">{{ producto.porcentaje_descuento }}% OFF</ion-chip>
+                        </p>
+                        <ng-template #precioNormal>
+                           <p>${{ producto.precio_base }}</p>
+                        </ng-template>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+        <ion-button (click)="onMapClick()" fill="clear" expand="block" color="medium">Enviar mensaje</ion-button>
+    </ion-card>
+  </div>
+</ion-content>

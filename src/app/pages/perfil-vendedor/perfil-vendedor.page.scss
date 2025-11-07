@@ -1,0 +1,59 @@
+ion-content {
+  --background: #f4f5f8; // Un fondo suave
+}
+
+.profile-card {
+  margin-top: 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  border-radius: 16px;
+  --background: #ffffff;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  margin: 10px auto;
+  border: 3px solid var(--ion-color-tertiary-tint);
+}
+
+.profile-icon {
+  font-size: 90px; // Icono grande
+  color: var(--ion-color-tertiary);
+}
+
+ion-card-title {
+  font-size: 1.8em;
+  font-weight: 700;
+  margin-top: 10px;
+  color: var(--ion-color-dark);
+}
+
+ion-card-subtitle {
+  font-size: 1.1em;
+  color: var(--ion-color-medium-shade);
+}
+
+ion-list {
+  margin-top: 20px;
+  --background: transparent;
+}
+
+ion-list-header {
+  font-size: 1em;
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+ion-item h3 {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+ion-item p {
+  color: var(--ion-color-medium-shade);
+}
+
+// Estilo para el botón de cerrar sesión
+ion-button[color="danger"] {
+  font-weight: 500;
+}

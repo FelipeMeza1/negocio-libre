@@ -1,0 +1,103 @@
+<ion-header>
+  <ion-toolbar color="tertiary"> 
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registra tu Negocio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="form-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Crea tu Cuenta de Vendedor</ion-card-title>
+        <ion-card-subtitle>Completa tus datos personales y los de tu negocio.</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="registroVendedorForm" (ngSubmit)="registrarVendedor()">
+          
+          <ion-grid>
+            <ion-row>
+              
+              <ion-col size="12" size-md="6">
+                <h3 class="column-title">Datos del Dueño</h3>
+
+                <ion-item>
+                  <ion-label position="floating">RUT (sin puntos, con dígito verificador)</ion-label>
+                  <ion-input type="text" formControlName="rut" maxlength="9" (ionInput)="onRutInput($event)"></ion-input>
+                  <ion-note slot="error" *ngIf="f['rut'].invalid && f['rut'].touched">
+                    RUT inválido (Ej: 12345678K).
+                  </ion-note>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Nombre Completo (dueño)</ion-label>
+                  <ion-input type="text" formControlName="nombre"></ion-input>
+                  <ion-note slot="error" *ngIf="f['nombre'].invalid && f['nombre'].touched">
+                    El nombre es obligatorio.
+                  </ion-note>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Correo Electrónico (Para tu cuenta)</ion-label>
+                  <ion-input type="email" formControlName="email"></ion-input>
+                  <ion-note slot="error" *ngIf="f['email'].invalid && f['email'].touched">
+                    <span *ngIf="f['email'].hasError('required')">Correo obligatorio.</span>
+                    <span *ngIf="f['email'].hasError('pattern')">Correo inválido.</span>
+                  </ion-note>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="floating">Contraseña</ion-label>
+                  <ion-input type="password" formControlName="password"></ion-input>
+                  <ion-note slot="error" *ngIf="f['password'].invalid && f['password'].touched">
+                    Mínimo 8 caracteres.
+                  </ion-note>
+                </ion-item>
+              </ion-col>
+              
+              <ion-col size="12" size-md="6">
+                <h3 class="column-title">Datos del Negocio</h3>
+
+                <ion-item>
+                  <ion-label position="floating">Nombre del Negocio</ion-label>
+                  <ion-input type="text" formControlName="nombre_negocio"></ion-input>
+                  <ion-note slot="error" *ngIf="f['nombre_negocio'].invalid && f['nombre_negocio'].touched">
+                    El nombre del negocio es obligatorio.
+                  </ion-note>
+                </ion-item>
+
+                <ion-item>
+                  <ion-label position="stacked">Tipo de Negocio</ion-label>
+                  <ion-select formControlName="tipo_negocio_id" placeholder="Selecciona una opción">
+                    <ion-select-option *ngFor="let tipo of tiposDeNegocio" [value]="tipo.id">
+                      {{ tipo.nombre }}
+                    </ion-select-option>
+                  </ion-select>
+                  <ion-note slot="error" *ngIf="f['tipo_negocio_id'].invalid && f['tipo_negocio_id'].touched">
+                    Debes seleccionar un tipo.
+                  </ion-note>
+                </ion-item>
+
+                <ion-item *ngIf="f['tipo_negocio_id'].value === 'otro'">
+                  <ion-label position="floating">Especifica el tipo de negocio</ion-label>
+                  <ion-input type="text" formControlName="otro_tipo_negocio"></ion-input>
+                  <ion-note slot="error" *ngIf="f['tipo_negocio_id'].value === 'otro' && f['otro_tipo_negocio'].invalid && f['otro_tipo_negocio'].touched">
+                    Debes especificar el tipo.
+                  </ion-note>
+                </ion-item>
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+          <ion-button class="ion-margin-top" type="submit" [disabled]="!registroVendedorForm.valid" expand="block" shape="round">
+            Registrar mi Negocio
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

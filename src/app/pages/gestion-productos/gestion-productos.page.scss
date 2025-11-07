@@ -1,0 +1,229 @@
+/* Estilos para los segmentos */
+ion-segment-button {
+  --color-checked: var(--ion-color-tertiary);
+  --indicator-color: var(--ion-color-tertiary);
+}
+
+/* Estilos de precio para "Mis Productos" */
+.precio {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.precio-antiguo-lista {
+  font-size: 0.8em;
+  text-decoration: line-through;
+  color: var(--ion-color-medium-shade);
+  text-align: right;
+}
+ion-chip.chip-oferta {
+  height: 20px;
+  font-size: 0.75em;
+  padding: 0 5px;
+  margin-left: 0;
+}
+
+/* --- ESTILOS PARA LA VISTA DE "AÑADIR PRODUCTO" --- */
+
+/* Miniatura grande en "Añadir Producto" */
+ion-thumbnail {
+  --size: 120px;
+  --border-radius: 8px;
+  width: var(--size);
+  height: var(--size);
+  margin: 0 auto;
+  border: 1px solid var(--ion-color-medium-tint);
+}
+
+.placeholder-thumb {
+  background: var(--ion-color-light-tint);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ion-icon {
+    font-size: 40px;
+    color: var(--ion-color-medium-shade);
+  }
+}
+
+/* Miniatura pequeña para las listas */
+.placeholder-thumb-small {
+  --size: 50px;
+  background: var(--ion-color-light-tint);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ion-icon {
+    font-size: 24px;
+    color: var(--ion-color-medium-shade);
+  }
+}
+
+/* Estilo para el separador "O" */
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--ion-color-medium-shade);
+  font-weight: 500;
+  margin: 15px 0;
+}
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--ion-color-medium-tint);
+}
+.separator:not(:empty)::before { margin-right: .5em; }
+.separator:not(:empty)::after { margin-left: .5em; }
+
+ion-note[slot="helper"] {
+  font-size: 0.8em;
+  color: var(--ion-color-medium-shade);
+  padding-left: 16px;
+}
+
+
+/* --- ESTILOS PARA LA LISTA Y SU ENCABEZADO --- */
+
+/* 1. Ajuste del encabezado de la lista */
+ion-list-header {
+  // Quita los márgenes por defecto
+  --padding-start: 16px; 
+  --padding-end: 16px;
+  --min-height: 48px;
+  
+  // Margen Negativo para subirlo a la altura de las imágenes
+  margin-top: -10px; 
+  margin-bottom: 5px; 
+  
+  // Fondo transparente para que el contenido de la página lo maneje
+  --background: transparent; 
+}
+
+/* 2. Estilo para el título "Mi Inventario" */
+ion-list-header ion-label {
+  font-size: 1.6em; /* ¡Más grande! */
+  font-weight: 700; /* Más negrita */
+  color: var(--ion-color-dark);
+}
+
+/* 3. Estilo para la nota de ayuda (Desliza...) */
+ion-list-header ion-note {
+  font-size: 0.85em;
+  color: var(--ion-color-medium-shade);
+}
+
+
+/* 4. Separar la miniatura del texto */
+ion-item ion-thumbnail[slot="start"] {
+  margin-right: 15px; 
+}
+
+/* 5. Mejorar el nombre del producto */
+ion-item ion-label h2 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+    margin-top: 0;
+    margin-bottom: 2px;
+}
+
+/* 6. Ajuste sutil para la info de stock */
+ion-item ion-label p {
+    font-size: 0.9em;
+    color: var(--ion-color-medium);
+}
+/* --- FIN DE ESTILOS DE LISTA --- */
+
+
+/* --- ESTILOS PARA LA TARJETA DE "CREAR OFERTA" --- */
+.oferta-card {
+  --background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.oferta-imagen, .oferta-imagen-placeholder {
+  width: 100%;
+  height: 150px; 
+  object-fit: cover;
+  border-bottom: 1px solid var(--ion-color-medium-tint);
+}
+
+.oferta-imagen-placeholder {
+  background: var(--ion-color-light-tint);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  ion-icon {
+    font-size: 50px;
+    color: var(--ion-color-medium-shade);
+  }
+}
+
+.oferta-titulo {
+  font-size: 1.5em; 
+  font-weight: 600;
+  color: var(--ion-color-dark);
+}
+
+.oferta-precio {
+  font-size: 1.2em; 
+  font-weight: 500;
+  color: var(--ion-color-medium-shade);
+  margin-top: 4px;
+}
+
+.oferta-range {
+  height: 20px;
+  --bar-border-radius: 10px;
+  --bar-background: var(--ion-color-light-tint); 
+  --bar-background-active: var(--ion-color-success); 
+  --knob-background: var(--ion-color-success-shade); 
+  --knob-size: 26px; 
+  padding-top: 20px;
+  padding-bottom: 15px;
+
+  &::part(pin) {
+    font-size: 14px;
+    font-weight: 500;
+    color: #fff;
+    background: var(--ion-color-success);
+    border-radius: 6px;
+    padding: 4px 8px;
+  }
+  
+  &::part(knob) {
+    border: 3px solid #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+}
+
+.oferta-display {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--ion-color-success);
+  text-align: center;
+  margin-top: 5px;
+}
+
+.oferta-precio-final {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid var(--ion-color-light-tint);
+  font-size: 1.2em;
+  font-weight: 500;
+  color: var(--ion-color-dark);
+  text-align: right;
+  
+  span {
+    font-size: 1.4em;
+    font-weight: 700;
+    color: var(--ion-color-success);
+    margin-left: 8px;
+  }
+}

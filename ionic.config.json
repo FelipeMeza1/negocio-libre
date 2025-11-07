@@ -1,5 +1,7 @@
 {
   "name": "negocio-libre",
-  "integrations": {},
+  "integrations": {
+    "capacitor": {}
+  },
   "type": "angular"
 }

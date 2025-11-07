@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Establecer Ubicación del Negocio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <ion-card>
+
+    <ion-card-header>
+      <ion-card-title>{{ nombreNegocio }}</ion-card-title>
+      <ion-card-subtitle>{{ tipoNegocio }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-item class="item-con-boton">
+        <ion-label position="floating">Buscar Dirección o haz clic en el mapa</ion-label>
+        <ion-input [(ngModel)]="direccion"></ion-input>
+        <ion-button (click)="buscarUbicacion()" slot="end" fill="clear">
+          <ion-icon name="search-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+
+      <div *ngIf="mapOptions" class="map-container">
+        <google-map 
+          [options]="mapOptions" 
+          height="100%" 
+          width="100%"
+          (mapClick)="moverPinConClick($event)">
+          
+          <map-marker *ngIf="markerPosition" [position]="markerPosition"></map-marker>
+        </google-map>
+      </div>
+
+      <ion-button (click)="centrarEnUbicacionActual()" 
+                  expand="block" 
+                  fill="outline" 
+                  color="primary"
+                  class="boton-centrar">
+        <ion-icon name="locate-outline" slot="start"></ion-icon>
+        Usar mi ubicación actual
+      </ion-button>
+
+      <ion-button 
+          (click)="confirmarGuardar()" 
+          expand="block" 
+          color="success"
+          [disabled]="!markerPosition"
+          class="boton-guardar">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        Guardar Ubicación
+      </ion-button>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

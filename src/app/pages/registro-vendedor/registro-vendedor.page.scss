@@ -1,0 +1,88 @@
+ion-content {
+    --background: var(--ion-color-light); 
+}
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+}
+
+ion-card {
+    max-width: 800px;
+    width: 100%;
+    margin: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+ion-card-title {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--ion-color-tertiary);
+    margin-bottom: 5px;
+}
+
+ion-card-subtitle {
+    text-align: center;
+    font-size: 1em;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.column-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+    border-bottom: 2px solid var(--ion-color-tertiary);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --background: transparent;
+    // Damos una altura mínima a cada item para que se alineen
+    // incluso si no tienen un error.
+    min-height: 80px; 
+}
+
+// Estilo para la etiqueta 'stacked' que arreglamos
+ion-item ion-label[position="stacked"] {
+    font-size: 0.9em;
+    font-weight: 500;
+    color: var(--ion-color-medium-shade);
+    margin-bottom: 4px;
+}
+
+// ¡ESTILO ACTUALIZADO PARA LOS ERRORES!
+// Ahora apuntamos a la nota dentro del slot="error"
+ion-note[slot="error"] {
+    font-size: 0.8em;
+    padding-left: 0; // El item ya tiene padding
+    padding-top: 4px; // Pequeño espacio
+    margin-bottom: 4px; // Espacio inferior
+}
+
+ion-button {
+    margin-top: 20px;
+    height: 48px;
+    font-weight: bold;
+}
+
+ion-grid {
+    padding: 0;
+}
+
+@media (max-width: 767px) {
+    .column-title {
+        margin-top: 20px;
+    }
+    // En móvil, no forzamos la altura mínima
+    ion-item {
+        min-height: auto; 
+    }
+}

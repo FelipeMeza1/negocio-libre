@@ -1,0 +1,85 @@
+ion-content {
+  --background: #f4f5f8;
+}
+
+/* Estilos para el estado inicial (botón) */
+.map-prompt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding: 24px;
+  text-align: center;
+
+  ion-icon[name="map-outline"] {
+    font-size: 80px;
+    color: var(--ion-color-primary-tint);
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    font-weight: bold;
+    color: #333;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 30px;
+    max-width: 400px;
+  }
+
+  ion-button {
+    font-weight: 500;
+    max-width: 350px;
+  }
+}
+
+/* Contenedor del mapa */
+.map-display-container {
+  height: 100%;
+  width: 100%;
+  position: relative; // Necesario para posicionar la tarjeta flotante
+}
+
+/* Estilos para la tarjeta flotante de información del negocio */
+.negocio-info-card {
+    position: absolute;
+    bottom: 10px; // Posicionada desde abajo
+    left: 50%;
+    transform: translateX(-50%); // Centrada horizontalmente
+    width: 95%;
+    max-width: 400px; // Ancho máximo profesional
+    z-index: 1000; // Asegura que esté sobre el mapa
+    max-height: 50vh; // Altura máxima (50% de la pantalla)
+    overflow-y: auto; // Permite desplazamiento si hay muchos productos
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    
+    ion-card-title {
+        font-size: 1.4em;
+        font-weight: bold;
+    }
+    
+    ion-card-subtitle {
+        font-size: 0.9em;
+        color: var(--ion-color-medium-shade);
+    }
+    
+    ion-item {
+        --padding-start: 0;
+    }
+
+    // Estilos de Precio para las ofertas
+    .price-final {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: var(--ion-color-success);
+        margin-right: 8px;
+    }
+    .price-base {
+        font-size: 0.9em;
+        color: var(--ion-color-medium);
+        text-decoration: line-through;
+    }
+}

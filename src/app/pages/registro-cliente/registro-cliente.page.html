@@ -1,123 +1,62 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Registro de Cliente</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear Cuenta de Cliente</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Registro como cliente</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="form-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Regístrate</ion-card-title>
+      </ion-card-header>
 
-  <ion-card class="registro">
-    <ion-card-header>
-      <ion-card-title style="color: black;">Registrate como Cliente:</ion-card-title>
-    </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="registroFormu" (ngSubmit)="Registro()">
 
-    <ion-card-content>
-      <form [formGroup]="registroFormu">
-        <ion-list class="registro">
-
-          <ion-item class="color">
-            <ion-label position="floating">Rut (sin puntos ni guión): </ion-label>
-            <ion-input type="text" placeholder="20435764-6" formControlName="rut"></ion-input>
+          <ion-item>
+            <ion-label position="floating">RUT (sin puntos, con dígito verificador)</ion-label>
+            <ion-input type="text" formControlName="rut" maxlength="9" (ionInput)="onRutInput($event)"></ion-input>
           </ion-item>
-
-          <div *ngIf="registroFormu.get('rut')?.invalid && (registroFormu.get('rut')?.dirty || registroFormu.get('rut')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('rut')?.hasError('required')">
-              El rut es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('rut')?.hasError('minlength')">
-              El rut debe tener 8 caracteres como mínimo
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('rut')?.hasError('maxlength')">
-              El rut debe tener 9 caracteres como máximo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Nombre: </ion-label>
-            <ion-input type="text" placeholder="Jane" formControlName="nombre"></ion-input>
+          <ion-note color="danger" *ngIf="registroFormu.get('rut')?.invalid && registroFormu.get('rut')?.touched" class="error-note">
+            El RUT es obligatorio y debe incluir el dígito verificador (Ej: 12345678K).
+          </ion-note>
+          <ion-item>
+            <ion-label position="floating">Nombre</ion-label>
+            <ion-input type="text" formControlName="nombre"></ion-input>
           </ion-item>
+          <ion-note color="danger" *ngIf="registroFormu.get('nombre')?.invalid && registroFormu.get('nombre')?.touched" class="error-note">
+            El nombre es obligatorio
+          </ion-note>
 
-          <div *ngIf="registroFormu.get('nombre')?.invalid && (registroFormu.get('nombre')?.dirty || registroFormu.get('nombre')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('nombre')?.hasError('required')">
-              El nombre es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('nombre')?.hasError('minlength')">
-              El nombre debe tener 3 caracteres como minimo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Apellido: </ion-label>
-            <ion-input type="text" placeholder="Doe" formControlName="apellido"></ion-input>
+          <ion-item>
+            <ion-label position="floating">Correo Electrónico</ion-label>
+            <ion-input type="email" formControlName="email"></ion-input>
           </ion-item>
+          <ion-note color="danger" *ngIf="registroFormu.get('email')?.invalid && registroFormu.get('email')?.touched" class="error-note">
+            <span *ngIf="registroFormu.get('email')?.hasError('required')">El correo es obligatorio.</span>
+            <span *ngIf="registroFormu.get('email')?.hasError('pattern')">Ingresa un correo válido.</span>
+          </ion-note>
 
-          <div *ngIf="registroFormu.get('apellido')?.invalid && (registroFormu.get('apellido')?.dirty || registroFormu.get('apellido')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('apellido')?.hasError('required')">
-              El apellido es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('apellido')?.hasError('minlength')">
-              El apellido debe tener 3 caracteres como minimo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Número: </ion-label>
-            <ion-input type="number" placeholder="9 2345 6746" formControlName="numero"></ion-input>
+          <ion-item>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
           </ion-item>
+          <ion-note color="danger" *ngIf="registroFormu.get('password')?.invalid && registroFormu.get('password')?.touched" class="error-note">
+            Mínimo 8 caracteres.
+          </ion-note>
 
-          <div *ngIf="registroFormu.get('numero')?.invalid && (registroFormu.get('numero')?.dirty || registroFormu.get('numero')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('numero')?.hasError('required')">
-              Tú número telefonico es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('numero')?.hasError('maxlength')">
-              El número debe tener 9 caracteres como máximo
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Correo Institucional: </ion-label>
-            <ion-input type="email" placeholder="jane.d@duocuc.cl" formControlName="email"></ion-input>
-          </ion-item>
-
-          <div *ngIf="registroFormu.get('email')?.invalid && (registroFormu.get('email')?.dirty || registroFormu.get('email')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('email')?.hasError('required')">
-              El correo institucional es obligatorio
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('email')?.hasError('minlength')">
-              El correo debe tener 9 caracteres como minimo
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('email')?.hasError('email')">
-              Ingresa un correo valido
-            </div>
-          </div>
-
-          <ion-item class="color">
-            <ion-label position="floating">Password: </ion-label>
-            <ion-input type="password" placeholder="ContraPass1" formControlName="password"></ion-input>
-          </ion-item>
-
-          <div *ngIf="registroFormu.get('password')?.invalid && (registroFormu.get('password')?.dirty || registroFormu.get('password')?.touched)">
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('password')?.hasError('required')">
-              La contraseña es obligatoria
-            </div>
-            <div style="color: red; padding: 5%;" *ngIf="registroFormu.get('password')?.hasError('minlength')">
-              Tu contraseña debe tener 8 caracteres como minimo
-            </div>
-          </div>
-        </ion-list>
-        <ion-button (click)="Registro()" [disabled]="!registroFormu.valid" expand="block" fill="solid" shape="round" color="primary">
-          Enviar
-        </ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-button routerLink="/inicio" expand="full" fill="solid" color="primary" shape="round">
-    vuelvase pal inicio washito
-  </ion-button>
+          <ion-button class="ion-margin-top" type="submit" [disabled]="!registroFormu.valid" expand="block" shape="round">
+            Registrarme
+          </ion-button>
+        </form>
+        <div class="ion-text-center ion-margin-top negocio-link-container">
+          <a routerLink="/registro-vendedor" class="negocio-link">¿Eres un vendedor? Registra tu negocio aquí</a>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
